@@ -1,0 +1,15 @@
+img{
+    max-width: 500px;
+    width: 90vw;
+    
+}
+
+#display{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.put-in-basket{
+    width: 100px;
+}
