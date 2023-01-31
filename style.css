@@ -13,3 +13,13 @@ img{
 .put-in-basket{
     width: 100px;
 }
+
+.tabel-img{
+    width: 50px;
+}
+
+table, th ,td {
+    border: 1px solid;
+    text-align: center;
+    
+}
