@@ -62,3 +62,49 @@ function addItem(x){
     localStorage.setItem(x,newValue);
     itemsInBasket();
 }
+
+function buy(){
+    console.log("HEj");
+    let x=  itemsInArray();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("mail").value;
+    console.log(name);
+    let body = JSON.stringify(
+        {
+            "name": name,
+            "email": email,
+            "shipping":"TEMP VALUE",
+            "items": JSON.stringify(x)
+        }
+    )
+    
+    fetch("https://firestore.googleapis.com/v1/projects/fakestore-c2abe/databases/(default)/documents/customers", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
+    })
+    .then(res => res.json())
+    .then(data => console.log(data));
+}
+
+
+function itemsInArray(){
+console.log("är i Items ARRAY");
+let items = [];
+
+for(let i = 0; i<localStorage.length;i++){
+    let n = Object.keys(localStorage)[i];
+    for(let y = 0; y <localStorage[n]; y++){
+        items.push(n);
+    }
+}
+    return items;
+}
+
+function fire(){
+    fetch("https://firestore.googleapis.com/v1/projects/fakestore-c2abe/databases/(default)/documents/customers")
+    .then(res => res.json())
+    .then(data => console.log(data));
+}
