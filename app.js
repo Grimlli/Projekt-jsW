@@ -2,6 +2,13 @@
 
 
 const disEL = document.getElementById("display");
+const userInfo = document.getElementById("user-info");
+const buyButton = document.getElementById("buy-button");
+
+const nameEL = document.getElementById("name");
+const mailEL = document.getElementById("mail");
+
+
 
 function test(){
     console.log(localStorage);
@@ -32,7 +39,7 @@ function itemsInBasket(){
                 totalPrice +=price;
                 console.log(totalPrice);
             }
-                display += `<tr> <th>Sum:</th>   <th></th>   <th>${totalPrice}</th> </tr> </table>`
+                display += `<tr> <th>Sum:</th>   <th></th>   <th>${totalPrice}£</th> </tr> </table>`
                 disEL.innerHTML =display
             })
 }
@@ -65,17 +72,25 @@ function addItem(x){
 
 function buy(){
     console.log("HEj");
+
     let x=  itemsInArray();
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("mail").value;
-    console.log(name);
+    let name = nameEL.value;
+    let email = mailEL.value;
+    console.log(name, email ,x)
     let body = JSON.stringify(
         {
-            "name": name,
-            "email": email,
-            "shipping":"TEMP VALUE",
-            "items": JSON.stringify(x)
-        }
+     
+                    "fields":{
+                        "name": { 
+                            "stringValue": name},
+                        "email": { 
+                            "stringValue":email},
+                        "shipping":{ 
+                            "stringValue":"TEMP VALUE"},
+                        "items":{
+                            "arrayValue":{ "values":x }}
+                    }
+                }
     )
     
     fetch("https://firestore.googleapis.com/v1/projects/fakestore-c2abe/databases/(default)/documents/customers", {
@@ -87,6 +102,8 @@ function buy(){
     })
     .then(res => res.json())
     .then(data => console.log(data));
+    
+    uppdatePage();
 }
 
 
@@ -97,9 +114,10 @@ let items = [];
 for(let i = 0; i<localStorage.length;i++){
     let n = Object.keys(localStorage)[i];
     for(let y = 0; y <localStorage[n]; y++){
-        items.push(n);
+        items.push({"stringValue":n});
     }
 }
+    console.log(items);
     return items;
 }
 
@@ -108,3 +126,33 @@ function fire(){
     .then(res => res.json())
     .then(data => console.log(data));
 }
+
+
+function uppdatePage(){
+
+    localStorage.clear();
+    itemsInBasket();
+    buyButton.setAttribute("disabled","disabld");
+    nameEL.value="";
+    mailEL.value ="";
+
+}
+
+
+
+userInfo.addEventListener("input", () => {
+
+    console.log(localStorage.length)
+    if(nameEL.value.length > 0 && 
+        mailEL.value.length > 0 && 
+        mailEL.value.includes("@") &&
+        localStorage.length  > 0) {
+        console.log("inne i if sats");
+        buyButton.removeAttribute("disabled");
+
+        }
+    else {
+        buyButton.setAttribute("disabled","disabld");
+    }
+})
+
