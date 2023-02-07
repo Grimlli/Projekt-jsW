@@ -5,10 +5,16 @@ const disEL = document.getElementById("display");
 const userInfo = document.getElementById("user-info");
 const buyButton = document.getElementById("buy-button");
 
+
+const inBasketEl = document.getElementById("in-basket");
+
 const nameEL = document.getElementById("name");
 const mailEL = document.getElementById("mail");
 
 
+// Bad name for functions sounds the same
+itemsInBasket();
+basketCount();
 
 function test(){
     console.log(localStorage);
@@ -138,6 +144,19 @@ function uppdatePage(){
 
 }
 
+
+function basketCount(){
+    let newItemCount = 0;
+    console.log("INNE i Basket COUNT");
+    console.log("Antal olika produkter "+localStorage.length);
+    for(let i =0; i<localStorage.length;i++){
+        let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
+        newItemCount += y;
+        console.log("FOR Y "+y);
+    }
+    console.log("X innan innerHTML "+newItemCount)
+    inBasketEl.innerHTML = newItemCount;
+}
 
 
 userInfo.addEventListener("input", () => {

@@ -10,6 +10,8 @@ let currentName = "";
 let currenEmail ="";
 let currentShipping ="";
 
+
+
 function getID(){
     fetch(url)
     .then(res => res.json())
@@ -80,7 +82,7 @@ function inspectSomething(x){
         for(let i = 0; i<data.fields.items.arrayValue.values.length;i++){
             display += `<tr> <th>item</th> <td>${data.fields.items.arrayValue.values[i].stringValue}
             <input type="button" value="change" onclick="hej('items',${i})"> </td>
-            <td><input id="delete-btn" type="button" value="delete" onclick=""temp()> </td> </tr> `
+            <td><input id="delete-btn" type="button" value="delete" onclick="deleteItem(${i})"> </td> </tr> `
         }
         display += "</table>";
     
@@ -188,9 +190,45 @@ function hej(x,y){
     .then(res => res.json())
     .then(data => console.log(data));
    
-    
-
 }
 
 // "inspectSomething(${data.documents[i].name})"
 
+
+function deleteItem(index){
+    delete arrayItems[index];
+    console.log("ARRAY ITEMS LENGHT "+ arrayItems.length);
+    if(arrayItems.length > 0){
+        let body = JSON.stringify(
+            {
+         
+            "fields":{
+                "name": { 
+                    "stringValue": currentName},
+                "email": { 
+                    "stringValue":currenEmail},
+                "shipping":{ 
+                    "stringValue":currentShipping},
+                "items":{
+                    "arrayValue":{ "values":arrayItems }}
+                }   
+            }
+        )
+        fetch(currentURL, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: body
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+       
+    }
+    else{
+        console.log("INNE I ELSE")
+        let urlForDelete = currentURL.slice(100);
+        console.log(urlForDelete);
+        deleteSomething(urlForDelete);
+    }  
+}

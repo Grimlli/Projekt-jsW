@@ -8,8 +8,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.html">To shop</a>
-    <a href="basket.html">To Basket</a>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">To shop</a></li>
+                <li><a href="basket.html">To Basket</a></li>
+            </ul>
+        </nav>
+
+        <div class="basket-number">
+            <img class="img-basket" src="shop-cart-white.png" alt="Shopping cart">
+            <p class="in-basket" id="in-basket"></p>
+        </div>
+
+    </header>
+
+<section class="runway">
     <h1>Admin Site</h1>
 
     <input type="button" value="Customers id" onclick="getID()">
@@ -18,6 +33,8 @@
 
     </article>
     <input type="text" id="master-input">
+</section>
+    
 
     <script src="appAdmin.js"></script>
 </body>

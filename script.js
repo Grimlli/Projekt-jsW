@@ -2,6 +2,10 @@
 
 const disEL = document.getElementById("display");
 const catagoryEl = document.getElementById("catagory");
+const inBasketEl = document.getElementById("in-basket");
+
+basketCount();
+
 
 
 fetch('https://fakestoreapi.com/products')
@@ -17,7 +21,7 @@ function displayItems(url,cat){
     for(let i = 0; i<url.length;i++){
         if (cat===url[i].category|| cat === "all"){
             
-            display += "<section> <img src=" +url[i].image+">";
+            display += "<section class='product-line'> <img src=" +url[i].image+">";
             display += "<h2>"+i+"<---->"+url[i].title+"</h2><p>"+url[i].price+"€</p> <p>"+url[i].rating.rate+"/5 </p>";         // might want to add number of votes
             display += "<p>"+url[i].description+"</p>" +"<p>"+url[i].category+"</p>";
             display += "<button type='submit' onclick='addToBasker("+i+")' id='btn-put-basket'>put in basket</button>";
@@ -37,6 +41,9 @@ function addToBasker(x){
     }
     console.log(newValue);
     localStorage.setItem(x,newValue);
+
+    basketCount();
+    
     
 }
 
@@ -46,11 +53,19 @@ function test(){
 }
 
 
-// function localStorageContainer(){
-//     const item = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0, 16:0, 17:0, 18:0, 19:0, 20:0}
-//     localStorage.setItem("items",item);
-// }
 
+function basketCount(){
+    let newItemCount = 0;
+    console.log("INNE i Basket COUNT");
+    console.log("Antal olika produkter "+localStorage.length);
+    for(let i =0; i<localStorage.length;i++){
+        let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
+        newItemCount += y;
+        console.log("FOR Y "+y);
+    }
+    console.log("X innan innerHTML "+newItemCount)
+    inBasketEl.innerHTML = newItemCount;
+}
 
 
 catagoryEl.addEventListener('change',(event) =>{
