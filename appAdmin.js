@@ -13,7 +13,7 @@ let currentName = "";
 let currenEmail ="";
 let currentShipping ="";
 
-
+basketCount();
 
 function getID(){
     fetch(url)
