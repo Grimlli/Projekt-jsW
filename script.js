@@ -20,11 +20,12 @@ function displayItems(url,cat){
 
     for(let i = 0; i<url.length;i++){
         if (cat===url[i].category|| cat === "all"){
-            
+            // console.log(url[i].title);
             display += "<section class='product-line'> <img src=" +url[i].image+">";
-            display += "<h2>"+i+"<---->"+url[i].title+"</h2><p>"+url[i].price+"€</p> <p>"+url[i].rating.rate+"/5 </p>";         // might want to add number of votes
-            display += "<p>"+url[i].description+"</p>" +"<p>"+url[i].category+"</p>";
-            display += "<button type='submit' onclick='addToBasker("+i+")' id='btn-put-basket'>put in basket</button>";
+            display += "<table> <tr><th colspan='2'>"+url[i].title+"</th> </tr> <tr> <td colspan='2'>"+url[i].price+"€</td></tr> <tr> <td>"+url[i].rating.rate+"/5 ⭐</td> <td>"+
+            url[i].rating.count+"</td> </tr>";         // might want to add number of votes
+            display += "<tr> <td colspan='2'>"+url[i].description+"</td> </tr> <tr><td colspan='2'>"+url[i].category+"</td> ";
+            display += "<tr> <td colspan='2'><button type='submit' onclick='addToBasker("+i+")' id='btn-put-basket'>put in basket</button> </td></tr></table>";
             display+="</section>";
         }
 
@@ -58,11 +59,14 @@ function basketCount(){
     let newItemCount = 0;
     console.log("INNE i Basket COUNT");
     console.log("Antal olika produkter "+localStorage.length);
-    for(let i =0; i<localStorage.length;i++){
-        let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
-        newItemCount += y;
-        console.log("FOR Y "+y);
-    }
+    if(localStorage.length > 0){
+
+        for(let i =0; i<localStorage.length;i++){
+            let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
+            newItemCount += y;
+            console.log("FOR Y "+y);
+        }
+        }   
     console.log("X innan innerHTML "+newItemCount)
     inBasketEl.innerHTML = newItemCount;
 }

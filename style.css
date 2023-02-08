@@ -134,3 +134,9 @@ h2{
     align-items: center;
     justify-content: center;
 }
+
+button{
+    width: 100%;
+    background-color: #252525;
+    color: white;
+}

@@ -4,6 +4,9 @@ const disEL = document.getElementById("display");
 const url = "https://firestore.googleapis.com/v1/projects/fakestore-c2abe/databases/(default)/documents/customers";
 const masterInput = document.getElementById("master-input");
 
+
+const inBasketEl = document.getElementById("in-basket");
+
 let currentURL;
 let arrayItems =[];
 let currentName = "";
@@ -65,24 +68,25 @@ function inspectSomething(x){
         let display = "<table>";
         disEL.innerHTML = "";
         display += `<tr> <th>Name</th> <td> ${data.fields.name.stringValue}
-        <input type="button" value="change" onclick="hej('name','inget')"> </td>
-        <td><input id="delete-btn" type="button" value="delete" onclick=""temp()> </td> </tr> `;
+         </td>
+        <td><input type="button" value="change" onclick="hej('name','inget')"> </td> </tr> `;
 
         display +=  `<tr> <th>Email</th> <td> ${data.fields.email.stringValue}" 
-        <input type="button" value="change" onclick="hej('email','inget')"> </td>
-        <td><input id="delete-btn" type="button" value="delete" onclick=""temp()> </td> </tr> `;
+         </td>
+        <td><input type="button" value="change" onclick="hej('email','inget')"> </td> </tr> `;
 
         display +=  `<tr> <th>Shipping</th> <td> ${data.fields.shipping.stringValue}"
-        <input type="button" value="change" onclick="hej('shipping','inget')"> </td>
-        <td><input id="delete-btn" type="button" value="delete" onclick=""temp()> </td> </tr> `;
+         </td>
+        <td><input type="button" value="change" onclick="hej('shipping','inget')"> </td> </tr> `;
         console.log(data.fields.items.arrayValue.values[0].stringValue);
         console.log(x);
         console.log(data.fields.items.arrayValue.values.length);
 
         for(let i = 0; i<data.fields.items.arrayValue.values.length;i++){
             display += `<tr> <th>item</th> <td>${data.fields.items.arrayValue.values[i].stringValue}
-            <input type="button" value="change" onclick="hej('items',${i})"> </td>
-            <td><input id="delete-btn" type="button" value="delete" onclick="deleteItem(${i})"> </td> </tr> `
+             </td>
+            <td> <input type="button" value="change" onclick="hej('items',${i})"> 
+            <input id="delete-btn" type="button" value="x" onclick="deleteItem(${i})"></td> </tr> `
         }
         display += "</table>";
     
@@ -232,3 +236,21 @@ function deleteItem(index){
         deleteSomething(urlForDelete);
     }  
 }
+
+
+function basketCount(){
+    let newItemCount = 0;
+    console.log("INNE i Basket COUNT");
+    console.log("Antal olika produkter "+localStorage.length);
+    if(localStorage.length > 0){
+
+        for(let i =0; i<localStorage.length;i++){
+            let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
+            newItemCount += y;
+            console.log("FOR Y "+y);
+        }
+        }   
+    console.log("X innan innerHTML "+newItemCount)
+    inBasketEl.innerHTML = newItemCount;
+}
+

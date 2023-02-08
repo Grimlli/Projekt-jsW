@@ -10,6 +10,7 @@ const inBasketEl = document.getElementById("in-basket");
 
 const nameEL = document.getElementById("name");
 const mailEL = document.getElementById("mail");
+const shipEl = document.getElementById("shipping");
 
 
 // Bad name for functions sounds the same
@@ -28,7 +29,8 @@ function itemsInBasket(){
     disEL.innerHTML +=display
 
     console.log(Object.keys(localStorage));
-    fetch('https://fakestoreapi.com/products')
+    if(localStorage.length > 0){
+        fetch('https://fakestoreapi.com/products')
         .then(res=>res.json())
         .then(json=>{
 
@@ -48,6 +50,11 @@ function itemsInBasket(){
                 display += `<tr> <th>Sum:</th>   <th></th>   <th>${totalPrice}£</th> </tr> </table>`
                 disEL.innerHTML =display
             })
+    }
+    else{
+        disEL.innerHTML ="";
+    }
+    
 }
 
 
@@ -62,6 +69,7 @@ function removeItem(x){
         localStorage.removeItem(x);
     }
     itemsInBasket();
+    basketCount()
 }
 
 function addItem(x){
@@ -74,6 +82,7 @@ function addItem(x){
     console.log(newValue);
     localStorage.setItem(x,newValue);
     itemsInBasket();
+    basketCount()
 }
 
 function buy(){
@@ -82,6 +91,7 @@ function buy(){
     let x=  itemsInArray();
     let name = nameEL.value;
     let email = mailEL.value;
+    let ship = shipEl.value;
     console.log(name, email ,x)
     let body = JSON.stringify(
         {
@@ -92,7 +102,7 @@ function buy(){
                         "email": { 
                             "stringValue":email},
                         "shipping":{ 
-                            "stringValue":"TEMP VALUE"},
+                            "stringValue":ship},
                         "items":{
                             "arrayValue":{ "values":x }}
                     }
@@ -138,6 +148,7 @@ function uppdatePage(){
 
     localStorage.clear();
     itemsInBasket();
+    basketCount();
     buyButton.setAttribute("disabled","disabld");
     nameEL.value="";
     mailEL.value ="";
@@ -149,11 +160,14 @@ function basketCount(){
     let newItemCount = 0;
     console.log("INNE i Basket COUNT");
     console.log("Antal olika produkter "+localStorage.length);
+    if(localStorage.length > 0){
+
     for(let i =0; i<localStorage.length;i++){
         let y =  parseInt(localStorage.getItem(parseInt(Object.keys(localStorage)[i]))); 
         newItemCount += y;
         console.log("FOR Y "+y);
     }
+    }   
     console.log("X innan innerHTML "+newItemCount)
     inBasketEl.innerHTML = newItemCount;
 }
