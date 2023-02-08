@@ -68,16 +68,16 @@ function inspectSomething(x){
         let display = "<table>";
         disEL.innerHTML = "";
         display += `<tr> <th>Name</th> <td> ${data.fields.name.stringValue}
-         </td>
-        <td><input type="button" value="change" onclick="hej('name','inget')"> </td> </tr> `;
+         </td> 
+        <td><input type="button" class='change-btn'  value="Change" onclick="hej('name','inget')"> </td> </tr> `;
 
         display +=  `<tr> <th>Email</th> <td> ${data.fields.email.stringValue}" 
          </td>
-        <td><input type="button" value="change" onclick="hej('email','inget')"> </td> </tr> `;
+        <td><input type="button" class='change-btn'  value="Change" onclick="hej('email','inget')"> </td> </tr> `;
 
         display +=  `<tr> <th>Shipping</th> <td> ${data.fields.shipping.stringValue}"
          </td>
-        <td><input type="button" value="change" onclick="hej('shipping','inget')"> </td> </tr> `;
+        <td><input class='change-btn' type="button" value="Change" onclick="hej('shipping','inget')"> </td> </tr> `;
         console.log(data.fields.items.arrayValue.values[0].stringValue);
         console.log(x);
         console.log(data.fields.items.arrayValue.values.length);
@@ -85,8 +85,8 @@ function inspectSomething(x){
         for(let i = 0; i<data.fields.items.arrayValue.values.length;i++){
             display += `<tr> <th>item</th> <td>${data.fields.items.arrayValue.values[i].stringValue}
              </td>
-            <td> <input type="button" value="change" onclick="hej('items',${i})"> 
-            <input id="delete-btn" type="button" value="x" onclick="deleteItem(${i})"></td> </tr> `
+            <td> <input type="button" class='change-btn' value="Change" onclick="hej('items',${i})"> 
+            <input id="delete-btn" type="button" value="Delete" onclick="deleteItem(${i})"></td> </tr> `
         }
         display += "</table>";
     
@@ -194,6 +194,8 @@ function hej(x,y){
     .then(res => res.json())
     .then(data => console.log(data));
    
+    inspectSomething(currentURL.slice(100));
+    masterInput.value  ="";
 }
 
 // "inspectSomething(${data.documents[i].name})"

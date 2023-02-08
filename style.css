@@ -140,3 +140,15 @@ button{
     background-color: #252525;
     color: white;
 }
+
+.change-btn{
+    width: 100%;
+    background-color: #252525;
+    color: white; 
+}
+
+#delete-btn{
+    width: 100%;
+    background-color: #252525;
+    color: white; 
+}
