@@ -94,6 +94,7 @@ function buy(){
     let name = nameEL.value;
     let email = mailEL.value;
     let ship = shipEl.value;
+    let addres = addresEL.value;
     console.log(name, email ,x)
     let body = JSON.stringify(
         {
@@ -103,6 +104,9 @@ function buy(){
                             "stringValue": name},
                         "email": { 
                             "stringValue":email},
+
+                        "addres": {
+                            "stringValue":addres},
                         "shipping":{ 
                             "stringValue":ship},
                         "items":{
@@ -154,6 +158,7 @@ function uppdatePage(){
     buyButton.setAttribute("disabled","disabld");
     nameEL.value="";
     mailEL.value ="";
+    addresEL.value="";
 
 }
 

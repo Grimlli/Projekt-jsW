@@ -12,6 +12,7 @@ let arrayItems =[];
 let currentName = "";
 let currenEmail ="";
 let currentShipping ="";
+let currentAddres ="";
 
 basketCount();
 
@@ -63,6 +64,7 @@ function inspectSomething(x){
         currenEmail =data.fields.email.stringValue;
         currentShipping =data.fields.shipping.stringValue;
         arrayItems = data.fields.items.arrayValue.values;
+        currentAddres =data.fields.addres.stringValue;
 
         const x = data.fields.name.stringValue;
         let display = "<table>";
@@ -78,6 +80,10 @@ function inspectSomething(x){
         display +=  `<tr> <th>Shipping</th> <td> ${data.fields.shipping.stringValue}"
          </td>
         <td><input class='change-btn' type="button" value="Change" onclick="hej('shipping','inget')"> </td> </tr> `;
+
+        display +=  `<tr> <th>Addres</th> <td> ${data.fields.addres.stringValue}"
+        </td>
+       <td><input class='change-btn' type="button" value="Change" onclick="hej('addres','inget')"> </td> </tr> `;
         console.log(data.fields.items.arrayValue.values[0].stringValue);
         console.log(x);
         console.log(data.fields.items.arrayValue.values.length);
@@ -92,6 +98,7 @@ function inspectSomething(x){
     
         disEL.innerHTML=display;
     });
+
 }
 
 
@@ -118,6 +125,8 @@ function hej(x,y){
                                     "stringValue": currentName},
                                 "email": { 
                                     "stringValue":currenEmail},
+                                "addres": {
+                                    "stringValue": currentAddres},
                                 "shipping":{ 
                                     "stringValue":currentShipping},
                                 "items":{
@@ -138,6 +147,8 @@ function hej(x,y){
                         "stringValue":currenEmail},
                     "shipping":{ 
                         "stringValue":currentShipping},
+                    "addres": {
+                        "stringValue": currentAddres},
                     "items":{
                         "arrayValue":{ "values":arrayItems }}
                 }
@@ -154,6 +165,8 @@ function hej(x,y){
                         "stringValue": currentName},
                     "email": { 
                         "stringValue":newValue},
+                    "addres": {
+                        "stringValue": currentAddres},
                     "shipping":{ 
                         "stringValue":currentShipping},
                     "items":{
@@ -173,13 +186,36 @@ function hej(x,y){
                         "stringValue": currentName},
                     "email": { 
                         "stringValue":currenEmail},
+                    "addres": {
+                        "stringValue": currentAddres},
                     "shipping":{ 
                         "stringValue":newValue},
                     "items":{
                         "arrayValue":{ "values":arrayItems }}
                 }
             }
+
         )
+        }
+        else if(x =="addres"){
+            console.log("IN Addres");
+            body = JSON.stringify(
+                {
+             
+                    "fields":{
+                        "name": { 
+                            "stringValue": currentName},
+                        "email": { 
+                            "stringValue":currenEmail},
+                        "addres": {
+                            "stringValue": newValue},
+                        "shipping":{ 
+                            "stringValue":currentShipping},
+                        "items":{
+                            "arrayValue":{ "values":arrayItems }}
+                    }
+                }
+            )
     }
   
     arrayItems =[];
@@ -193,7 +229,7 @@ function hej(x,y){
     })
     .then(res => res.json())
     .then(data => console.log(data));
-   
+   console.log("UPPdate edit")
     inspectSomething(currentURL.slice(100));
     masterInput.value  ="";
 }
