@@ -181,7 +181,7 @@ userInfo.addEventListener("input", () => {
     if(nameEL.value.length > 0 && 
         mailEL.value.length > 0 && 
         mailEL.value.includes("@") &&
-        addresEL.value > 0 &&
+        addresEL.value.length > 0 &&
         localStorage.length  > 0) {
         console.log("inne i if sats");
         buyButton.removeAttribute("disabled");
