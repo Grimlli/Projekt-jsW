@@ -82,7 +82,7 @@ nav{
     position: relative;
 }
 .in-basket{
-    width: 100%;
+    width: 98%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -90,6 +90,7 @@ nav{
     font-size: 25px;
     position: absolute;
     color: white;
+    margin-right: 2%;
 
 }
 

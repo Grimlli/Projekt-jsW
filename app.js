@@ -11,6 +11,7 @@ const inBasketEl = document.getElementById("in-basket");
 const nameEL = document.getElementById("name");
 const mailEL = document.getElementById("mail");
 const shipEl = document.getElementById("shipping");
+const addresEL = document.getElementById("addres");
 
 
 // Bad name for functions sounds the same
@@ -37,13 +38,14 @@ function itemsInBasket(){
             let totalPrice = 0;
             for(let i = 0; i<localStorage.length;i++){
                 let price = 0;
-                display += `<tr> <td> <input type=button onclick="removeItem(${Object.keys(localStorage)[i]})" value="-">
+                display += `<tr> <td rowspan="2"> <input type=button onclick="removeItem(${Object.keys(localStorage)[i]})" value="-">
                 ${localStorage.getItem(Object.keys(localStorage)[i])} 
                 <input type=button onclick="addItem(${Object.keys(localStorage)[i]})" value="+"</td> `;
 
                 display += `<td><img class='tabel-img' src=${json[Object.keys(localStorage)[i]].image}></td>`;
                 price = json[Object.keys(localStorage)[i]].price*localStorage.getItem(Object.keys(localStorage)[i]);
-                display += `<td>${price}£</td> </tr>`;
+                display += `<td rowspan="2">${price}£</td> </tr>`;
+                display += `<tr> <td> ${json[Object.keys(localStorage)[i]].title} </td> </tr>`
                 totalPrice +=price;
                 console.log(totalPrice);
             }
@@ -179,6 +181,7 @@ userInfo.addEventListener("input", () => {
     if(nameEL.value.length > 0 && 
         mailEL.value.length > 0 && 
         mailEL.value.includes("@") &&
+        addresEL.value > 0 &&
         localStorage.length  > 0) {
         console.log("inne i if sats");
         buyButton.removeAttribute("disabled");
